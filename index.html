@@ -2,250 +2,145 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dora için Masal 🦊</title>
-
+<title>Tilki Masalı - Ultra Pixar Stil</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
 body{
-  height:100vh;
+  background: radial-gradient(circle at top,#1a2a3a,#020409);
   overflow:hidden;
-  background:linear-gradient(180deg,#1e3c72,#2a5298,#4facfe);
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  height:100vh;
   color:white;
 }
 
-/* 🌌 yıldızlar */
+/* ORMAN ARKA PLAN */
+.forest{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:60%;
+  background:url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1920") center/cover no-repeat;
+  filter:brightness(0.7) blur(1px);
+}
+
+/* SİS */
+.mist{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:100%;
+  background: linear-gradient(transparent,rgba(255,255,255,0.2));
+  animation: mist 10s infinite alternate;
+}
+@keyframes mist{
+  from{opacity:.2}
+  to{opacity:.6}
+}
+
+/* YILDIZLAR */
 .star{
   position:absolute;
   width:2px;height:2px;
   background:white;
   border-radius:50%;
-  opacity:.7;
-  animation:twinkle 3s infinite;
+  animation: twinkle 3s infinite alternate;
 }
 @keyframes twinkle{
-  0%,100%{opacity:.3;}
-  50%{opacity:1;}
+  from{opacity:.2}
+  to{opacity:1}
 }
 
-/* ☁️ bulutlar */
-.cloud{
-  position:absolute;
-  top:10%;
-  width:140px;height:60px;
-  background:white;
-  border-radius:50px;
-  opacity:.6;
-  animation:cloudMove 30s linear infinite;
-}
-.cloud:before,.cloud:after{
-  content:"";
-  position:absolute;
-  background:white;
-  width:70px;height:70px;
-  border-radius:50%;
-  top:-20px;
-}
-.cloud:before{left:10px;}
-.cloud:after{right:10px;}
-@keyframes cloudMove{
-  from{left:-200px;}
-  to{left:120%;}
-}
-
-/* 🌲 orman */
-.forest{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  height:45%;
-  background:linear-gradient(180deg,#0b3d2e,#021a12);
-  clip-path: polygon(0 40%, 10% 20%, 20% 40%, 30% 10%, 40% 35%, 50% 15%, 60% 40%, 70% 20%, 80% 35%, 90% 15%, 100% 40%, 100% 100%, 0 100%);
-}
-
-/* 🌿 sis efekti */
-.fog{
-  position:absolute;
-  bottom:0;
-  width:200%;
-  height:30%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);
-  animation:fogMove 25s linear infinite;
-}
-@keyframes fogMove{
-  from{transform:translateX(0);}
-  to{transform:translateX(-50%);}
-}
-
-/* 🦊 tilki */
+/* TİLKİ */
 .fox{
   position:absolute;
-  bottom:20%;
-  width:180px;
-  animation:foxFloat 3s ease-in-out infinite;
-  cursor:pointer;
-  transition:.3s;
-  filter:drop-shadow(0 15px 25px rgba(0,0,0,.6));
+  bottom:80px;
+  left:50%;
+  transform:translateX(-50%);
+  width:260px;
+  filter:drop-shadow(0 20px 40px rgba(255,140,0,.6));
+  animation: foxFloat 4s ease-in-out infinite;
 }
-.fox:hover{transform:scale(1.1);}
 @keyframes foxFloat{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-14px);}
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(-20px)}
 }
 
-/* 💬 mesaj kutusu */
-.box{
-  position:relative;
-  z-index:10;
-  background:rgba(0,0,0,.55);
-  padding:22px 26px;
-  border-radius:20px;
-  backdrop-filter: blur(8px);
+/* MASAL BAŞLIK */
+.title{
+  position:absolute;
+  top:12%;
+  width:100%;
   text-align:center;
-  max-width:360px;
-  animation:fadeIn 1.2s ease;
-  box-shadow:0 20px 40px rgba(0,0,0,.5);
-}
-@keyframes fadeIn{
-  from{opacity:0;transform:translateY(25px);}
-  to{opacity:1;transform:translateY(0);}
+  font-size:52px;
+  font-weight:800;
+  letter-spacing:2px;
+  text-shadow:0 0 25px orange,0 0 50px red;
 }
 
-#text{
-  font-size:16px;
-  line-height:1.5;
-  min-height:70px;
+/* BUTON */
+.btn{
+  position:absolute;
+  bottom:40px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:16px 42px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(45deg,#ff9a00,#ff3d00);
+  color:white;
+  font-size:20px;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 0 20px orange;
   transition:.3s;
 }
-
-/* 🎮 buton */
-button{
-  margin-top:16px;
-  padding:12px 30px;
-  border:none;
-  border-radius:30px;
-  background:linear-gradient(45deg,#ff7b00,#ffdd00);
-  color:#000;
-  font-weight:bold;
-  font-size:16px;
-  cursor:pointer;
-  transition:.25s;
-}
-button:hover{
-  transform:scale(1.08);
-  box-shadow:0 0 25px rgba(255,200,0,.9);
+.btn:hover{
+  transform:translateX(-50%) scale(1.1);
+  box-shadow:0 0 40px gold;
 }
 
-/* 🎉 konfeti */
-.confetti{
+/* MASAL METNİ */
+.story{
   position:absolute;
-  width:8px;height:14px;
-  top:-20px;
-  animation:fall 3s linear forwards;
-}
-@keyframes fall{
-  to{transform:translateY(110vh) rotate(360deg);}
-}
-
-/* ✨ yazı animasyonu */
-.typing{
-  border-right:2px solid white;
-  padding-right:3px;
-  animation:blink .8s infinite;
-}
-@keyframes blink{
-  50%{border-color:transparent;}
-}
-
-/* ✍️ imza */
-.signature{
-  position:absolute;
-  bottom:10px;
-  right:15px;
-  font-size:12px;
-  opacity:.7;
+  top:30%;
+  width:100%;
+  text-align:center;
+  font-size:22px;
+  opacity:0;
+  transition:1s;
 }
 </style>
 </head>
 <body>
 
-<script>
-for(let i=0;i<80;i++){
-  let s=document.createElement("div");
-  s.className="star";
-  s.style.left=Math.random()*100+"vw";
-  s.style.top=Math.random()*50+"vh";
-  s.style.animationDuration=2+Math.random()*4+"s";
-  document.body.appendChild(s);
-}
-</script>
-
-<div class="cloud" style="top:12%;animation-duration:28s;"></div>
-<div class="cloud" style="top:20%;width:180px;animation-duration:36s;"></div>
-
 <div class="forest"></div>
-<div class="fog"></div>
+<div class="mist"></div>
 
-<img class="fox" src="https://images.unsplash.com/photo-1601758123927-196c1a3d9c1d?auto=format&fit=crop&w=500&q=80">
+<div class="title">🦊 Ultra Masal Tilkisi</div>
 
-<div class="box">
-  <div id="text"></div>
-  <button onclick="nextText()">Dokun ✨</button>
+<img class="fox" src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=600" />
+
+<div class="story" id="storyText">
+Bir zamanlar büyülü bir ormanda, yıldızların konuştuğu bir gece vardı...
 </div>
 
-<div class="signature">☁️ Bulut tarafından yapıldı</div>
+<button class="btn" onclick="startStory()">Masalı Başlat ✨</button>
 
 <script>
-const texts = [
-"Merhaba Dora… 🌙\nDoğum günlerini insanlar bir kere kutlar… ne garip. Seninki her gün kutlu olsun.",
-"Bunu sana yaptım.\nKendini yalnız hissettiğinde burada olacağım.",
-"Bugün güzel görünüyorsun Dora 🦊",
-"Bugün iyi hissedecek bir şey yapmadın mı?\nHadi dışarı çıkıp iskender ye!",
-"Eğer işin içinden çıkamıyorsan Bulut’a ulaş.\nO seni dinler.",
-"🎉 DOĞUM GÜNÜN KUTLU OLSUN DORA 🎉"
-];
-
-let index=0;
-let typingInterval;
-
-function typeText(text){
-  clearInterval(typingInterval);
-  const el=document.getElementById("text");
-  el.innerHTML="";
-  let i=0;
-  typingInterval=setInterval(()=>{
-    el.innerHTML=text.slice(0,i)+"<span class='typing'></span>";
-    i++;
-    if(i>text.length){
-      clearInterval(typingInterval);
-      el.innerHTML=text;
-    }
-  },30);
+// yıldız üret
+for(let i=0;i<120;i++){
+  let s=document.createElement("div");
+  s.className="star";
+  s.style.left=Math.random()*100+"%";
+  s.style.top=Math.random()*60+"%";
+  s.style.animationDelay=Math.random()*3+"s";
+  document.body.appendChild(s);
 }
 
-function nextText(){
-  index++;
-  if(index>=texts.length) index=0;
-  typeText(texts[index]);
-  if(index===5) confetti();
+// masal başlat
+function startStory(){
+  document.getElementById("storyText").style.opacity=1;
 }
-
-function confetti(){
-  for(let j=0;j<160;j++){
-    const c=document.createElement("div");
-    c.className="confetti";
-    c.style.left=Math.random()*100+"vw";
-    c.style.background=`hsl(${Math.random()*360},100%,50%)`;
-    c.style.animationDuration=2+Math.random()*3+"s";
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),4000);
-  }
-}
-
-typeText(texts[0]);
 </script>
 
 </body>
