@@ -9,19 +9,18 @@
 body{
   height:100vh;
   overflow:hidden;
-  background:linear-gradient(to top,#0a2a1b,#1c5e2c);
-  color:white;
   position:relative;
+  background:#0a2a1b;
 }
 
-/* 🌲 Orman katmanları */
-.forest-layer{
+/* 🌲 Orman arka plan */
+.forest{
   position:absolute;
   bottom:0;
   width:100%;
   height:100%;
-  background: url('https://i.imgur.com/0gVuw8R.png') repeat-x; /* örnek ağaç çizimi, GitHub’da kendi resmine değiştir */
-  background-size: cover;
+  background:url('https://i.imgur.com/oU1qCz0.png') no-repeat bottom center;
+  background-size:cover;
   z-index:0;
 }
 
@@ -35,25 +34,16 @@ body{
 /* 🦊 Tilki */
 .fox{
   position:absolute;
-  bottom:10%;
+  bottom:15%;
   left:10%;
-  width:150px;
-  animation:foxWalk 6s infinite alternate ease-in-out;
+  width:180px;
   z-index:2;
+  animation:walk 6s infinite alternate ease-in-out;
 }
-.fox svg{
+.fox img{
   width:100%;
-  filter:drop-shadow(0 25px 40px rgba(0,0,0,.7));
 }
-.eye{
-  animation:blink 5s infinite;
-  transform-origin:center;
-}
-@keyframes blink{
-  0%,90%,100%{transform:scaleY(1)}
-  92%,94%{transform:scaleY(0.1)}
-}
-@keyframes foxWalk{
+@keyframes walk{
   0%{left:10%}
   50%{left:50%}
   100%{left:10%}
@@ -65,12 +55,12 @@ body{
   bottom:65%;
   left:50%;
   transform:translateX(-50%);
-  background:rgba(0,0,0,.35);
-  backdrop-filter:blur(8px);
-  padding:18px 22px;
+  background:rgba(0,0,0,0.4);
+  backdrop-filter:blur(6px);
+  padding:16px 20px;
   border-radius:20px;
   text-align:center;
-  max-width:300px;
+  max-width:280px;
   z-index:3;
 }
 #text{
@@ -89,7 +79,7 @@ button{
 }
 button:hover{transform:scale(1.08)}
 
-/* 🎉 Konfeti */
+/* 🎉 konfeti */
 .confetti{
   position:fixed;width:8px;height:8px;
   animation:fall 3s linear forwards;
@@ -101,33 +91,14 @@ button:hover{transform:scale(1.08)}
 </head>
 <body>
 
-<!-- 🌲 Orman arka plan -->
-<div class="forest-layer"></div>
+<div class="forest"></div>
 
 <!-- 🌌 Yıldızlar -->
 <div id="sky"></div>
 
-<!-- 🦊 Tilki (gerçekçi, sevimli, SVG) -->
+<!-- 🦊 Tilki -->
 <div class="fox">
-<svg viewBox="0 0 300 300">
-  <!-- kulaklar -->
-  <polygon points="70,90 40,20 120,80" fill="#ff7a18"/>
-  <polygon points="230,90 260,20 180,80" fill="#ff7a18"/>
-  <!-- kafa -->
-  <ellipse cx="150" cy="160" rx="90" ry="80" fill="#ff8c1a"/>
-  <!-- yanak -->
-  <ellipse cx="90" cy="190" rx="45" ry="35" fill="#ffd7b5"/>
-  <ellipse cx="210" cy="190" rx="45" ry="35" fill="#ffd7b5"/>
-  <!-- gözler -->
-  <ellipse class="eye" cx="120" cy="150" rx="10" ry="14" fill="#000"/>
-  <ellipse class="eye" cx="180" cy="150" rx="10" ry="14" fill="#000"/>
-  <circle cx="117" cy="145" r="3" fill="#fff"/>
-  <circle cx="177" cy="145" r="3" fill="#fff"/>
-  <!-- burun -->
-  <polygon points="150,180 140,200 160,200" fill="#000"/>
-  <!-- ağız -->
-  <path d="M120 210 Q150 235 180 210" stroke="#000" stroke-width="5" fill="none"/>
-</svg>
+  <img src="https://i.imgur.com/1BvM0gA.png" alt="Sevimli Tilki">
 </div>
 
 <!-- Masal paneli -->
@@ -150,20 +121,18 @@ let i=0;
 function nextText(){
  document.getElementById("text").innerText=texts[i];
  i++;
- if(i===texts.length){
-   confetti();
- }
+ if(i===texts.length){ confetti(); }
  if(i>=texts.length){i=0;}
 }
 
 // konfeti
 function confetti(){
- for(let i=0;i<150;i++){
+ for(let j=0;j<150;j++){
   let c=document.createElement("div");
   c.className="confetti";
   c.style.left=Math.random()*100+"vw";
   c.style.background=`hsl(${Math.random()*360},100%,50%)`;
-  c.style.animationDuration=2+Math.random()*2+"s";
+  c.style.animationDuration=(2+Math.random()*2)+"s";
   document.body.appendChild(c);
   setTimeout(()=>c.remove(),4000);
  }
@@ -171,13 +140,13 @@ function confetti(){
 
 // yıldızlar
 const sky=document.getElementById("sky");
-for(let i=0;i<120;i++){
- let s=document.createElement("div");
- s.className="star";
- s.style.left=Math.random()*100+"vw";
- s.style.top=Math.random()*60+"vh";
- s.style.animationDuration=1+Math.random()*3+"s";
- sky.appendChild(s);
+for(let s=0;s<120;s++){
+ let star=document.createElement("div");
+ star.className="star";
+ star.style.left=Math.random()*100+"vw";
+ star.style.top=Math.random()*60+"vh";
+ star.style.animationDuration=1+Math.random()*3+"s";
+ sky.appendChild(star);
 }
 </script>
 </body>
