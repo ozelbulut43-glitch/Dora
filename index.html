@@ -45,8 +45,8 @@
     /* Sun Animation */
     .sun {
       position: absolute;
-      top: 2%;
-      right: 3%;
+      top: 5%;
+      right: 8%;
       width: 12vw;
       height: 12vw;
       max-width: 80px;
@@ -65,12 +65,12 @@
     /* Sun Rays */
     .sun-ray {
       position: absolute;
-      top: 1.5%;
-      right: 2%;
-      width: 15vw;
-      height: 15vw;
-      max-width: 100px;
-      max-height: 100px;
+      top: 1%;
+      right: 6%;
+      width: 12vw;
+      height: 12vw;
+      max-width: 80px;
+      max-height: 80px;
       animation: raysSpin 20s linear infinite;
     }
     
@@ -86,14 +86,29 @@
     }
     
     .tree svg {
-      width: 8vw;
+      width: auto;
       height: auto;
-      max-width: 80px;
+      max-width: none;
+      min-width: none;
+    }
+    
+    @media (max-width: 768px) {
+      .tree svg {
+        width: 110px;
+        height: 220px;
+      }
+    }
+    
+    @media (min-width: 769px) {
+      .tree svg {
+        width: 140px;
+        height: 260px;
+      }
     }
     
     .tree-1 { left: 2%; animation: treeWave 6s ease-in-out infinite; }
-    .tree-2 { left: 15%; animation: treeWave 7s ease-in-out infinite 0.5s; }
-    .tree-3 { right: 18%; animation: treeWave 5s ease-in-out infinite 1s; }
+    .tree-2 { left: 12%; animation: treeWave 7s ease-in-out infinite 0.5s; }
+    .tree-3 { right: 12%; animation: treeWave 5s ease-in-out infinite 1s; }
     .tree-4 { right: 2%; animation: treeWave 6.5s ease-in-out infinite 0.3s; }
     
     @keyframes treeWave {
@@ -536,7 +551,7 @@
      🦊
     </div>
     <h2 id="message-title" class="handwritten font-bold mb-3" style="background: linear-gradient(135deg, #FF6B35 0%, #FF69B4 25%, #9370DB 50%, #87CEEB 75%, #FFD700 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Merhaba Dora!</h2>
-    <p id="message-text" class="mb-5" style="background: linear-gradient(135deg, #FF8E53 0%, #FF69B4 20%, #9370DB 40%, #228B22 60%, #FFD700 80%, #FF6B35 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Tilki seninle konuşmak için sabırsızlanıyor! Büyülü butona dokun ve mesajlarını keşfet 💕</p>
+    <p id="message-text" class="mb-5" style="background: linear-gradient(135deg, #FF8E53 0%, #FF69B4 20%, #9370DB 40%, #228B22 60%, #FFD700 80%, #FF6B35 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Tilki seninle konu��mak için sabırsızlanıyor! Büyülü butona dokun ve mesajlarını keşfet 💕</p>
     <div class="flex justify-center mb-3"><button id="magic-button" class="magic-button"> ✨ Bana Dokun ✨ </button>
     </div>
     <div id="counter" class="text-gray-400 text-center"></div>
@@ -598,8 +613,8 @@
       },
       {
         icon: '🎂',
-        title: '🎉 Özel Gün! 🎉',
-        text: 'DOĞUM GÜNÜN KUTLU OLSUN {name}! 🎈��🎊'
+        title: '🎉 Özel Gün! ���',
+        text: 'DOĞUM GÜNÜN KUTLU OLSUN {name}! ������🎊'
       }
     ];
 
@@ -768,5 +783,5 @@
       config = window.elementSdk.config || defaultConfig;
     }
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ca87bbd76fe9841',t:'MTc3MDUyNTk4Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ca885b8075a9841',t:'MTc3MDUyNjM5Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
