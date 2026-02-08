@@ -1,174 +1,101 @@
 <!doctype html>
 <html lang="tr" class="h-full">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dora'nın Doğum Günü</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { margin: 0; padding: 0; overflow: hidden; }
-        .font-handwritten { font-family: 'Caveat', cursive; }
-        .font-main { font-family: 'Quicksand', sans-serif; }
-        
-        /* Orman Arka Planı */
-        .forest-bg {
-            background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 40%, #2E7D32 100%);
-            height: 100vh;
-            width: 100vw;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dora'nın Doğum Günü</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        /* Pati Sallama Animasyonu */
-        @keyframes wave {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(-25deg); }
-        }
-        .paw-wave {
-            transform-origin: 140px 110px;
-            animation: wave 1.2s ease-in-out infinite;
-        }
+  <style>
+    body { margin: 0; padding: 0; overflow: hidden; }
+    .font-handwritten { font-family: 'Caveat', cursive; }
+    .font-main { font-family: 'Quicksand', sans-serif; }
 
-        /* Göz Kırpma Animasyonu */
-        @keyframes blink {
-            0%, 90%, 100% { transform: scaleY(1); }
-            95% { transform: scaleY(0.1); }
-        }
-        .blink-eye { transform-origin: center; animation: blink 4s infinite; }
+    .forest-bg {
+      background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 40%, #2E7D32 100%);
+      height: 100vh; width: 100vw;
+    }
 
-        /* Kuş Animasyonu */
-        .bird { position: absolute; animation: fly 15s linear infinite; font-size: 24px; z-index: 10; }
-        @keyframes fly {
-            0% { left: -10%; top: 15%; transform: scaleX(1); }
-            100% { left: 110%; top: 10%; transform: scaleX(1); }
-        }
+    /* Kuş Animasyonu */
+    .bird { position: absolute; animation: fly 15s linear infinite; font-size: 22px; z-index: 10; }
+    @keyframes fly {
+      0% { left: -10%; top: 15%; transform: scaleX(1); }
+      100% { left: 110%; top: 10%; transform: scaleX(1); }
+    }
 
-        /* İltifat Balonu */
-        .bubble {
-            position: absolute; background: white; padding: 10px 15px;
-            border-radius: 20px; font-family: 'Caveat'; font-size: 1.2rem;
-            opacity: 0; transition: 0.4s; pointer-events: none;
-            bottom: 110%; left: 50%; transform: translateX(-50%) scale(0.5);
-            white-space: nowrap; box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            z-index: 100; color: #D2691E; border: 2px solid #F7931E;
-        }
-        .bubble-show { opacity: 1; transform: translateX(-50%) scale(1) translateY(-10px); }
+    /* İltifat Balonu (mobil için küçültüldü) */
+    .bubble {
+      position: absolute;
+      background: white;
+      padding: 8px 12px;
+      border-radius: 18px;
+      font-family: 'Caveat';
+      font-size: 1.05rem;
+      opacity: 0;
+      transition: 0.35s;
+      pointer-events: none;
+      bottom: 112%;
+      left: 50%;
+      transform: translateX(-50%) scale(0.6);
+      white-space: nowrap;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+      z-index: 100;
+      color: #D2691E;
+      border: 2px solid #F7931E;
+      max-width: 88vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .bubble-show { opacity: 1; transform: translateX(-50%) scale(1) translateY(-8px); }
 
-        .message-card {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(8px);
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            border: 1px solid rgba(255,255,255,0.5);
-        }
+    .message-card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      border-radius: 22px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    .fade-text { transition: opacity 0.45s ease; }
 
-        .fade-text { transition: opacity 0.5s ease; }
-    </style>
-</head>
-<body class="h-full font-main forest-bg">
+    /* ---------- Tilki (PNG) + hareket + blink ---------- */
+    .fox-wrap{
+      position: relative;
+      width: 170px;
+      height: 170px;
+      display: grid;
+      place-items: center;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .fox-img{
+      width: 170px;
+      height: 170px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,0.15));
+      transform-origin: 50% 70%;
+    }
 
-    <div class="bird" style="animation-delay: 0s;">🐦</div>
-    <div class="bird" style="animation-delay: 7s; animation-duration: 18s;">🕊️</div>
+    /* küçük hareket */
+    @keyframes fox-wiggle {
+      0% { transform: translateY(0) rotate(0deg) scale(1); }
+      20% { transform: translateY(-6px) rotate(-2deg) scale(1.01); }
+      45% { transform: translateY(0) rotate(2deg) scale(1.01); }
+      70% { transform: translateY(-3px) rotate(-1deg) scale(1.005); }
+      100% { transform: translateY(0) rotate(0deg) scale(1); }
+    }
+    .fox-wiggle { animation: fox-wiggle 650ms ease-out; }
 
-    <div class="flex flex-col items-center justify-start h-full px-6 pt-12">
-        
-        <div class="message-card p-6 w-full max-w-sm text-center z-20">
-            <div id="messageDisplay" class="min-h-[160px] flex items-center justify-center">
-                <p id="mainText" class="text-xl font-medium text-gray-800 leading-relaxed fade-text">
-                    Merhaba Dora! Seni bekleyen bir şeyler var... ✨
-                </p>
-            </div>
-            
-            <button id="nextBtn" class="mt-4 w-full bg-orange-500 hover:bg-orange-600 text-white px-6 py-4 rounded-2xl font-bold shadow-lg transition-all active:scale-95 text-lg">
-                Dokun ve Keşfet 🌟
-            </button>
-            <p id="counter" class="text-xs text-gray-400 mt-3">Mesaj 0/6</p>
-        </div>
-
-        <div class="fixed bottom-8 flex flex-col items-center">
-            <div id="foxBubble" class="bubble">Harikasın! ✨</div>
-            <div class="relative scale-75 md:scale-100 cursor-pointer" onclick="showFoxCompliment()">
-                <svg width="160" height="160" viewBox="0 0 200 200">
-                    <path d="M140,140 Q180,120 150,80 Q130,100 140,140" fill="#D2691E" />
-                    <path d="M70,150 Q100,180 130,150 L125,110 Q100,100 75,110 Z" fill="#D2691E" />
-                    <path d="M90,150 Q100,160 110,150 L108,125 Q100,120 92,125 Z" fill="white" opacity="0.9" />
-                    <path d="M60,80 Q100,45 140,80 Q140,115 100,125 Q60,115 60,80" fill="#D2691E" />
-                    <path d="M70,60 L55,25 L85,50 Z" fill="#D2691E" />
-                    <path d="M130,60 L145,25 L115,50 Z" fill="#D2691E" />
-                    <g class="paw-wave">
-                        <ellipse cx="145" cy="115" rx="10" ry="15" fill="#D2691E" />
-                        <circle cx="145" cy="108" r="3" fill="#333" opacity="0.1" />
-                    </g>
-                    <ellipse cx="55" cy="115" rx="10" ry="15" fill="#D2691E" />
-                    <g class="blink-eye">
-                        <circle cx="85" cy="85" r="5" fill="#333" />
-                        <circle cx="115" cy="85" r="5" fill="#333" />
-                    </g>
-                    <circle cx="100" cy="102" r="4" fill="#2C3E50" />
-                </svg>
-            </div>
-            <p class="text-white text-xs font-bold bg-black/20 px-3 py-1 rounded-full mt-2">Bana dokun!</p>
-        </div>
-
-    </div>
-
-    <script>
-        const messages = [
-            "<span class='font-handwritten text-2xl text-orange-600 block mb-2'>Merhaba Dora,</span>Doğum günlerini insanlar bir kere kutlar... ne aptalca! Her gün kutlu olsun senin. Bunu sana yaptım; her kendini kötü hissettiğinde, bazen insanlar etrafında olmazlar, ekranın arkasında bazen ruhunun tam yanında burada olacağım. Dokunman ve hissetmen yeterli. ❤️",
-            "Bugün çok güzel görünüyorsun Dora! ✨🦊",
-            "Bugün iyi hissedecek bir şeyler yapmadın mı? Hadi dışarı çıkıp <span class='text-orange-600 font-bold'>İskender ye!</span> 😋🍖",
-            "Eğer işin içinden çıkamıyorsan <span class='text-blue-500 font-bold'>Bulut'a ulaş</span>, o seni her zaman dinleyecektir. ☁️💙",
-            "Hey! <br> <span class='text-2xl font-handwritten text-orange-500'>İyi ki varsın.</span> 💖",
-            "<span class='text-3xl font-bold text-orange-600 block animate-bounce'>DOĞUM GÜNÜN KUTLU OLSUN!</span> 🎉🎂🎈"
-        ];
-
-        const compliments = [
-            "Çok özelsin! ✨",
-            "Gülümsemen harika! 😊",
-            "Sen çok değerlisin! ❤️",
-            "Dora sen bir tanesin! 🦊",
-            "Her şey güzel olacak! 🌟"
-        ];
-
-        let currentIdx = 0;
-        const mainText = document.getElementById('mainText');
-        const nextBtn = document.getElementById('nextBtn');
-        const counter = document.getElementById('counter');
-
-        nextBtn.addEventListener('click', () => {
-            if(currentIdx < messages.length) {
-                mainText.style.opacity = 0;
-                
-                setTimeout(() => {
-                    mainText.innerHTML = messages[currentIdx];
-                    mainText.style.opacity = 1;
-                    currentIdx++;
-                    counter.innerText = `Mesaj ${currentIdx}/6`;
-                    
-                    if(currentIdx === messages.length) {
-                        nextBtn.innerText = "Baştan Başla 🔄";
-                    } else {
-                        nextBtn.innerText = "Devam Et 🐾";
-                    }
-                }, 500);
-            } else {
-                currentIdx = 0;
-                mainText.innerHTML = "Dora için yeni bir tur başlıyor... ✨";
-                nextBtn.innerText = "Dokun ve Keşfet 🌟";
-                counter.innerText = `Mesaj 0/6`;
-            }
-        });
-
-        function showFoxCompliment() {
-            const bubble = document.getElementById('foxBubble');
-            const randomMsg = compliments[Math.floor(Math.random() * compliments.length)];
-            
-            bubble.textContent = randomMsg;
-            bubble.classList.add('bubble-show');
-            
-            setTimeout(() => {
-                bubble.classList.remove('bubble-show');
-            }, 2500);
-        }
-    </script>
-</body>
-</html>
+    /* PNG'ye blink efekti: göz üstüne "kapak" */
+    .lid {
+      position: absolute;
+      width: 34px;
+      height: 0px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+      opacity: 0;
+      pointer-events: none;
+    }
+    /* göz konumları (yaklaşık) */
+    .lid.
