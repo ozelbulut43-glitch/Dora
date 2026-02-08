@@ -2,146 +2,170 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Tilki Masalı - Ultra Pixar Stil</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dora için Masal</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
 body{
-  background: radial-gradient(circle at top,#1a2a3a,#020409);
-  overflow:hidden;
   height:100vh;
+  background:linear-gradient(#0a2a43,#1b5e20);
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   color:white;
 }
 
-/* ORMAN ARKA PLAN */
+/* Orman efekti */
 .forest{
   position:absolute;
   bottom:0;
   width:100%;
-  height:60%;
-  background:url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1920") center/cover no-repeat;
-  filter:brightness(0.7) blur(1px);
+  height:40%;
+  background:linear-gradient(to top,#0b3d0b,transparent);
 }
 
-/* SİS */
-.mist{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  height:100%;
-  background: linear-gradient(transparent,rgba(255,255,255,0.2));
-  animation: mist 10s infinite alternate;
-}
-@keyframes mist{
-  from{opacity:.2}
-  to{opacity:.6}
-}
-
-/* YILDIZLAR */
+/* yıldızlar */
 .star{
   position:absolute;
-  width:2px;height:2px;
+  width:2px;
+  height:2px;
   background:white;
   border-radius:50%;
-  animation: twinkle 3s infinite alternate;
+  animation:twinkle 2s infinite alternate;
 }
-@keyframes twinkle{
-  from{opacity:.2}
-  to{opacity:1}
-}
+@keyframes twinkle{from{opacity:.2}to{opacity:1}}
 
-/* TİLKİ */
+/* Tilki */
 .fox{
   position:absolute;
-  bottom:80px;
-  left:50%;
-  transform:translateX(-50%);
-  width:260px;
-  filter:drop-shadow(0 20px 40px rgba(255,140,0,.6));
-  animation: foxFloat 4s ease-in-out infinite;
+  bottom:10%;
+  width:160px;
+  height:160px;
+  animation:bounce 2.5s infinite ease-in-out;
 }
-@keyframes foxFloat{
-  0%,100%{transform:translateX(-50%) translateY(0)}
-  50%{transform:translateX(-50%) translateY(-20px)}
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-20px)}
 }
 
-/* MASAL BAŞLIK */
-.title{
-  position:absolute;
-  top:12%;
+/* Tilki çizimi */
+.fox svg{
   width:100%;
-  text-align:center;
-  font-size:52px;
-  font-weight:800;
-  letter-spacing:2px;
-  text-shadow:0 0 25px orange,0 0 50px red;
+  height:100%;
+  filter:drop-shadow(0 15px 30px rgba(0,0,0,.5));
 }
 
-/* BUTON */
-.btn{
-  position:absolute;
-  bottom:40px;
-  left:50%;
-  transform:translateX(-50%);
-  padding:16px 42px;
+/* Masal kutusu */
+.box{
+  position:relative;
+  z-index:10;
+  text-align:center;
+  background:rgba(0,0,0,.4);
+  backdrop-filter:blur(10px);
+  padding:25px 30px;
+  border-radius:20px;
+  max-width:350px;
+  animation:fadeIn 1.5s;
+}
+@keyframes fadeIn{from{opacity:0;transform:scale(.9)}to{opacity:1}}
+
+button{
+  margin-top:15px;
+  padding:12px 28px;
   border:none;
-  border-radius:50px;
-  background:linear-gradient(45deg,#ff9a00,#ff3d00);
+  border-radius:30px;
+  background:linear-gradient(45deg,#ff9800,#ff5722);
   color:white;
-  font-size:20px;
-  font-weight:600;
+  font-size:16px;
   cursor:pointer;
-  box-shadow:0 0 20px orange;
+  box-shadow:0 0 20px rgba(255,152,0,.6);
   transition:.3s;
 }
-.btn:hover{
-  transform:translateX(-50%) scale(1.1);
-  box-shadow:0 0 40px gold;
+button:hover{transform:scale(1.08)}
+
+#text{
+  font-size:17px;
+  line-height:1.5;
+  min-height:70px;
 }
 
-/* MASAL METNİ */
-.story{
-  position:absolute;
-  top:30%;
-  width:100%;
-  text-align:center;
-  font-size:22px;
-  opacity:0;
-  transition:1s;
+/* konfeti */
+.confetti{
+  position:fixed;
+  width:8px;
+  height:8px;
+  background:red;
+  animation:fall 3s linear forwards;
+}
+@keyframes fall{
+  to{transform:translateY(100vh) rotate(720deg);opacity:0}
 }
 </style>
 </head>
 <body>
 
 <div class="forest"></div>
-<div class="mist"></div>
 
-<div class="title">🦊 Ultra Masal Tilkisi</div>
-
-<img class="fox" src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?q=80&w=600" />
-
-<div class="story" id="storyText">
-Bir zamanlar büyülü bir ormanda, yıldızların konuştuğu bir gece vardı...
+<div class="fox">
+<svg viewBox="0 0 200 200">
+  <circle cx="100" cy="110" r="55" fill="#ff8c1a"/>
+  <polygon points="45,50 70,20 85,60" fill="#ff8c1a"/>
+  <polygon points="155,50 130,20 115,60" fill="#ff8c1a"/>
+  <circle cx="80" cy="110" r="8" fill="#000"/>
+  <circle cx="120" cy="110" r="8" fill="#000"/>
+  <polygon points="100,125 90,140 110,140" fill="#000"/>
+  <path d="M70 140 Q100 160 130 140" stroke="#000" stroke-width="4" fill="none"/>
+</svg>
 </div>
 
-<button class="btn" onclick="startStory()">Masalı Başlat ✨</button>
+<div class="box">
+  <div id="text">Butona dokun 🦊</div>
+  <button onclick="nextText()">Dokun</button>
+</div>
 
 <script>
-// yıldız üret
-for(let i=0;i<120;i++){
-  let s=document.createElement("div");
-  s.className="star";
-  s.style.left=Math.random()*100+"%";
-  s.style.top=Math.random()*60+"%";
-  s.style.animationDelay=Math.random()*3+"s";
-  document.body.appendChild(s);
+const texts=[
+"Merhaba Dora… doğum günlerini insanlar bir kere kutlar. Ne aptalca… Her gün kutlu olsun senin. Bunu sana yaptım. Kendini kötü hissettiğinde, bazen insanlar yanında olmaz ama ben burada olacağım. Dokunman yeterli.",
+"Bugün çok güzel görünüyorsun Dora.",
+"Bugün iyi hissettirecek bir şey yapmadın mı? Hadi dışarı çıkıp iskender ye!",
+"Eğer işin içinden çıkamıyorsan Bulut’a ulaş. O seni dinleyecektir.",
+"Hey… iyi ki varsın.",
+"DOĞUM GÜNÜN KUTLU OLSUN DORA 🎉"
+];
+
+let i=0;
+
+function nextText(){
+ document.getElementById("text").innerText=texts[i];
+ i++;
+ if(i===texts.length){
+   confetti();
+ }
+ if(i>=texts.length){i=0;}
 }
 
-// masal başlat
-function startStory(){
-  document.getElementById("storyText").style.opacity=1;
+function confetti(){
+ for(let i=0;i<120;i++){
+  let c=document.createElement("div");
+  c.className="confetti";
+  c.style.left=Math.random()*100+"vw";
+  c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+  c.style.animationDuration=2+Math.random()*2+"s";
+  document.body.appendChild(c);
+  setTimeout(()=>c.remove(),4000);
+ }
+}
+
+// yıldızlar
+for(let i=0;i<80;i++){
+ let s=document.createElement("div");
+ s.className="star";
+ s.style.left=Math.random()*100+"vw";
+ s.style.top=Math.random()*50+"vh";
+ s.style.animationDuration=1+Math.random()*3+"s";
+ document.body.appendChild(s);
 }
 </script>
-
 </body>
 </html>
