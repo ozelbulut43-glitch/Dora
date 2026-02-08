@@ -1,92 +1,372 @@
-<!DOCTYPE html> <html lang="tr"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0"/> <title>Dora'nın Doğum Günü</title> <style> :root{ --mavi: #87CEFA; --mavi2: #1E90FF; --yazi: #1a1a1a; --font: 'Arial', sans-serif; } *{box-sizing: border-box;} html, body { height: 100%; margin: 0; font-family: var(--font); color: var(--yazi); background: linear-gradient(#87CEFA 0%, #1E90FF 100%); overflow: hidden; } /* Arka plan: orman ve gökyüzü hissi için ilüzyonel arka plan */ .scene { position: relative; width: 100%; height: 100%; overflow: hidden; } /* Basit orman katmanı (arka plan) */ .forest { position: absolute; bottom: 0; left: 0; width: 100%; height: 40vh; background: linear-gradient(to top, #2e8b57 0%, #228b22 60%, transparent 60%), repeating-linear-gradient( to right, #2e8b57 0 40px, #2e8b2a 40px 80px); filter: saturate(110%); pointer-events: none; } /* Gökyüzü ve bulutlar için basit şekiller */ .cloud { position: absolute; background: white; width: 180px; height: 60px; border-radius: 50px; opacity: 0.9; filter: blur(0.2px); animation: float 20s linear infinite; } @keyframes float { from { transform: translateX(-20%); } to { transform: translateX(120%); } } .cloud.one { top: 10%; left: -10%; animation-duration: 28s; opacity:.9; } .cloud.two { top: 25%; left: 20%; width: 140px; height: 44px; animation-duration: 22s; opacity:.75; } .cloud.three { top: 5%; left: 60%; width: 200px; height: 70px; animation-duration: 26s; opacity:.65; }
-/* Tilki karakteri (SVG/svg inline) */
-.kit {
-position: absolute;
-right: 6%;
-bottom: 45vh;
-width: 180px;
-height: auto;
-filter: drop-shadow(0 6px 6px rgba(0,0,0,.25));
-animation: sway 3s ease-in-out infinite;
-}
-@keyframes sway {
-0%, 100% { transform: translateX(0) rotate(0deg); }
-50% { transform: translateX(-6px) rotate(-8deg); }
-}
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dora'nın Doğum Günü</title>
 
-/* Kart içerik bölümü merkezi */
-.center {
-position: absolute;
-top: 14%;
-left: 50%;
-transform: translateX(-50%);
-width: min(92vw, 720px);
-text-align: center;
-padding: 16px;
-border-radius: 20px;
-background: rgba(255,255,255,.75);
-backdrop-filter: blur(2px);
-box-shadow: 0 10px 25px rgba(0,0,0,.15);
-}
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-.title {
-font-size: clamp(18px, 4vw, 28px);
-font-weight: bold;
-margin: 8px 0 12px;
-color: #1b1b1b;
-}
+  <style>
+    :root{
+      --orange:#f97316;
+      --orange2:#ea580c;
+      --card: rgba(255,255,255,.92);
+      --shadow: 0 15px 35px rgba(0,0,0,.15);
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0; padding:0; overflow:hidden;
+      font-family:'Quicksand', system-ui, Arial, sans-serif;
+      background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 40%, #2E7D32 100%);
+    }
+    .wrap{
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+      padding: 40px 16px 0;
+      gap: 14px;
+    }
 
-.section {
-font-size: clamp(14px, 3.6vw, 22px);
-line-height: 1.5;
-color: #1a1a1a;
-margin: 8px 0;
-}
+    /* Kuş */
+    .bird{ position:absolute; font-size:22px; z-index:10; animation: fly 15s linear infinite; }
+    @keyframes fly{ 0%{left:-10%; top:15%;} 100%{left:110%; top:10%;} }
 
-.button {
-margin-top: 14px;
-padding: 14px 22px;
-font-size: clamp(14px, 3.5vw, 20px);
-border: none;
-border-radius: 14px;
-cursor: pointer;
-background: linear-gradient(#ffb347, #ff8c00);
-color: #222;
-font-weight: bold;
-box-shadow: 0 6px 14px rgba(0,0,0,.15);
-transition: transform .1s ease;
-}
-.button:active { transform: scale(0.98); }
+    /* Kart */
+    .card{
+      width:min(420px, 100%);
+      background: var(--card);
+      border-radius:22px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.55);
+      padding: 18px;
+      text-align:center;
+      z-index:20;
+      backdrop-filter: blur(8px);
+    }
+    .messageBox{
+      min-height: 150px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .scroll{
+      width:100%;
+      max-height: 46vh;
+      overflow:auto;
+      padding: 0 4px;
+    }
+    .fade{ transition: opacity .28s ease; }
+    .text{
+      margin:0;
+      font-size: 15px;
+      line-height: 1.55;
+      color:#1f2937;
+      font-weight:600;
+    }
+    @media (min-width: 480px){
+      .text{ font-size: 17px; }
+    }
 
-/* Konfeti için basit bir kapsayıcı */
-.confetti {
-position: absolute;
-pointer-events: none;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-overflow: hidden;
-z-index: 5;
-}
+    /* Buton */
+    .btn{
+      margin-top: 14px;
+      width:100%;
+      border:none;
+      background: var(--orange);
+      color:white;
+      padding: 14px 14px;
+      border-radius: 18px;
+      font-size: 16px;
+      font-weight:800;
+      cursor:pointer;
+      box-shadow: 0 10px 22px rgba(249,115,22,.28);
+      transition: transform .08s ease, background .2s ease;
+    }
+    .btn:hover{ background: var(--orange2); }
+    .btn:active{ transform: scale(.98); }
 
-/* Konfeti parçacıkları */
-.confetti-piece {
-position: absolute;
-width: 8px;
-height: 14px;
-border-radius: 2px;
-opacity: 0.9;
-animation: fall linear forwards;
-}
-@keyframes fall {
-to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-}
+    .counter{
+      margin: 10px 0 0;
+      font-size: 11px;
+      color: rgba(0,0,0,.45);
+      font-weight:600;
+    }
 
-/* Responsive sıkıştırma için küçük ekranlar */
-@media (max-width: 600px) {
-.kit { width: 120px; bottom: 40vh; }
-.center { top: 12%; padding: 12px; }
-}
+    /* Tilki alanı */
+    .foxArea{
+      position: fixed;
+      bottom: 22px;
+      left: 0; right: 0;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap: 8px;
+    }
+    .hint{
+      font-size: 11px;
+      color:white;
+      background: rgba(0,0,0,.2);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight:800;
+    }
 
-</style> </head> <body> <div class="scene" aria-label="Dora'nın doğum günü sayfası"> <div class="cloud one"></div> <div class="cloud two"></div> <div class="cloud three"></div> <!-- Tilki (SVG basit ama hoş görünümlü) --> <svg class="kit" viewBox="0 0 200 200" aria-label="Tilki"> <!-- Basit stilize tilki figürü; gerçeğe yakınlık için renkler ve ifadeyi ayarlayın --> <defs> <linearGradient id="fur" x1="0" x2="1" y1="0" y2="1"> <stop offset="0%" stop-color="#f4a261"/> <stop offset="60%" stop-color="#e07a3f"/> <stop offset="100%" stop-color="#d16b2b"/> </linearGradient> <linearGradient id="eye" x1="0" x2="1" y1="0" y2="0"> <stop offset="0%" stop-color="#000"/> <stop offset="100%" stop-color="#333"/> </linearGradient> </defs> <!-- Basit tilki gövdesi --> <path d="M60,140 C40,120 28,92 40,72 C52,52 84,50 100,60 C110,64 120,72 128,84 C150,68 180,74 192,96 C198,112 190,132 170,144 C128,170 80,170 60,140Z" fill="url(#fur)" /> <!-- Kafa --> <path d="M100,60 C112,46 132,46 144,60 C148,66 152,74 150,84 C148,98 136,108 124,112 C112,116 102,112 96,100 C92,94 90,84 92,76 C94,68 96,66 100,60Z" fill="#f4a261"/> <!-- Gözler --> <ellipse cx="108" cy="70" rx="3" ry="5" fill="black"/> <ellipse cx="92" cy="70" rx="3" ry="5" fill="black"/> <!-- Burun --> <circle cx="100" cy="90" r="4" fill="black"/> </svg> <!-- Ana içerik --> <div class="center" role="region" aria-label="Doğum Günü Mesajları"> <div class="title" id="title">Dora'nın Doğum Günü</div> <div class="section" id="text">Tıkladığın anda mesajlar değişecek. Başlamak için butona bas!</div> <button class="button" id="nextBtn" aria-label="Bir sonraki mesajı göster">Tıkla ve kutla!</button> <!-- Konfeti için kapsayıcı --> <div class="confetti" id="confetti"></div> </div> <!-- Arka plan ormanı alt katmanda (bu öğeler HTMLye eklenmiş halde) --> <div class="forest" aria-label="Orman arka plan"></div> </div> <script> // 6 bölümlük metinler const bölümler = [ "Merhaba Dora, doğum günleri insanlar bir kere kutlar ne aptalca! her gün kutlu olsun senin. Bunu sana yaptım; kendini kötü hissettiğinde insanlar etrafında olmazlar, ekranın arkasında bazen ruhunun tam yanında burada olacağım. Dokunman ve hissetmen yeterli.", "Bu gün güzel görünüyorsun Dora", "Bu gün iyi hissedecek bir şeyler yapmadın mı? Hadi dışarı çıkıp iskender ye!", "Eğer işin içinden çıkamıyorsan Buluta ulaş o seni dinleyecektir.", "Hey İyi ki varsın.", "DOĞUM GÜNÜN KUTLU OLSUN!" ]; let idx = 0; const textEl = document.getElementById('text'); const btn = document.getElementById('nextBtn'); const confettiEl = document.getElementById('confetti'); // Tilkiye tıklama efekti (örnek: iltifat edip göz kırpma) // Tilki üstüne tıklanabilir değilse de kullanıcı etkileşimini artırmak için bir dokunma efekti ekleyelim. // Tilki SVG'sine basit bir etkileşim ekleyelim. const tilki = document.querySelector('.kit'); tilki.style.cursor = 'pointer'; tilki.addEventListener('click', () => { // Küçük bir yüz ifadesi değiştirme hissi için renk değişimi ve bir söz tilki.style.filter = 'drop-shadow(0 6px 14px rgba(0,0,0,.4))'; // Ardından kısa bir teşekkür/iltifat mesaj göstermek istersen showToast("Göz kırpıyorum... Doğum günün kutlu olsun!"); // Geçici olarak tilt'i hafifçe sallatabiliriz (CSS ile zaten hareket var) setTimeout(() => { tilki.style.filter = ''; }, 350); }); // Basit toast mesajı function showToast(message){ const t = document.createElement('div'); t.textContent = message; Object.assign(t.style, { position: 'fixed', left: '50%', bottom: '20px', transform: 'translateX(-50%)', background: 'rgba(0,0,0,.75)', color: 'white', padding: '10px 16px', borderRadius: '8px', fontSize: '14px', zIndex: 9999, pointerEvents: 'none' }); document.body.appendChild(t); setTimeout(()=>{ t.style.transition = 'opacity 0.5s'; t.style.opacity = '0'; }, 1200); setTimeout(()=>{ t.remove(); }, 1700); } // Konfeti üretimi function fireConfetti() { const colors = ['#FFC107', '#FF6F61', '#8BC34A', '#03A9F4', '#E91E63', '#9C27B0']; const count = 60; for (let i = 0; i < count; i++) { const piece = document.createElement('div'); piece.className = 'confetti-piece'; piece.style.left = Math.random() * 100 + 'vw'; piece.style.top = (-Math.random() * 20) + 'vh'; piece.style.width = (6 + Math.random() * 8) + 'px'; piece.style.height = (8 + Math.random() * 12) + 'px'; piece.style.background = colors[Math.floor(Math.random() * colors.length)]; piece.style.transform = 'rotate(' + (Math.random() * 360) + 'deg)'; piece.style.animationDuration = (2 + Math.random() * 3) + 's'; piece.style.animationDelay = (Math.random() * 0.5) + 's'; confettiEl.appendChild(piece); // Animasyon bittikten sonra temizle piece.addEventListener('animationend', () => piece.remove()); } } // İlk yüklemede 1. kısım gözüksün istersen textEl.textContent = bölümler[0]; idx = 0; btn.addEventListener('click', () => { idx++; if (idx >= bölümler.length) { idx = bölümler.length - 1; } textEl.textContent = bölümler[idx]; // 6. bölümde konfeti if (idx === bölümler.length - 1) { fireConfetti(); } }); </script> </body> </html>
+    /* Baloncuk */
+    .bubble{
+      position:absolute;
+      transform: translateX(-50%) scale(.6);
+      left:50%;
+      bottom: 112%;
+      background:white;
+      border:2px solid #F7931E;
+      color:#D2691E;
+      font-family:'Caveat', cursive;
+      font-size: 18px;
+      padding: 8px 12px;
+      border-radius: 18px;
+      opacity:0;
+      transition: .25s;
+      white-space: nowrap;
+      max-width: 88vw;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      box-shadow: 0 10px 20px rgba(0,0,0,.12);
+      pointer-events:none;
+      z-index:100;
+    }
+    .bubble.show{ opacity:1; transform: translateX(-50%) scale(1) translateY(-8px); }
+
+    /* SVG tilki */
+    .foxBtn{
+      border:none; background:transparent; padding:0;
+      cursor:pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .foxWrap{
+      position:relative;
+      width:170px; height:170px;
+      display:grid; place-items:center;
+      user-select:none;
+    }
+    .foxSvg{
+      width:170px; height:170px;
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,.15));
+      transform-origin: 50% 70%;
+    }
+    @keyframes wiggle{
+      0% { transform: translateY(0) rotate(0deg) scale(1); }
+      20%{ transform: translateY(-6px) rotate(-2deg) scale(1.01); }
+      45%{ transform: translateY(0) rotate(2deg) scale(1.01); }
+      70%{ transform: translateY(-3px) rotate(-1deg) scale(1.005); }
+      100%{ transform: translateY(0) rotate(0deg) scale(1); }
+    }
+    .wiggle{ animation: wiggle .65s ease-out; }
+
+    .lid{ opacity:0; transform: scaleY(0); transform-origin:center; }
+    @keyframes blink{
+      0%{transform:scaleY(0); opacity:0;}
+      35%{transform:scaleY(1); opacity:1;}
+      70%{transform:scaleY(0); opacity:.9;}
+      100%{transform:scaleY(0); opacity:0;}
+    }
+    .blink .lid{ animation: blink .22s ease-in-out; }
+
+    /* Hata kutusu */
+    .err{
+      position: fixed;
+      top: 10px; left: 10px; right: 10px;
+      background: rgba(220,38,38,.95);
+      color: white;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      z-index: 9999;
+      display:none;
+      white-space: pre-wrap;
+      box-shadow: 0 10px 20px rgba(0,0,0,.2);
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .bird{ animation:none !important; }
+      .wiggle{ animation:none !important; }
+      .blink .lid{ animation:none !important; }
+      .fade{ transition:none !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bird" style="animation-delay:0s;">🐦</div>
+  <div class="bird" style="animation-delay:7s; animation-duration:18s;">🕊️</div>
+
+  <div id="errBox" class="err"></div>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="messageBox">
+        <div class="scroll">
+          <p id="mainText" class="text fade">Merhaba Dora! Seni bekleyen bir şeyler var... ✨</p>
+        </div>
+      </div>
+
+      <button id="nextBtn" class="btn">Dokun ve Keşfet 🌟</button>
+      <p id="counter" class="counter">Mesaj 0/6</p>
+    </div>
+  </div>
+
+  <div class="foxArea">
+    <div id="foxBubble" class="bubble">Harikasın! ✨</div>
+
+    <button id="foxBtn" class="foxBtn" aria-label="Tilkiye dokun">
+      <div id="foxWrap" class="foxWrap">
+        <svg id="foxSvg" class="foxSvg" viewBox="0 0 200 200" role="img" aria-label="Tilki">
+          <defs>
+            <radialGradient id="fur" cx="35%" cy="30%" r="80%">
+              <stop offset="0%" stop-color="#ffb36b"/>
+              <stop offset="55%" stop-color="#f07a2b"/>
+              <stop offset="100%" stop-color="#c6521d"/>
+            </radialGradient>
+            <radialGradient id="fur2" cx="60%" cy="40%" r="80%">
+              <stop offset="0%" stop-color="#ffd2a3"/>
+              <stop offset="60%" stop-color="#f08a3b"/>
+              <stop offset="100%" stop-color="#b94a1a"/>
+            </radialGradient>
+          </defs>
+
+          <ellipse cx="100" cy="176" rx="54" ry="14" fill="rgba(0,0,0,0.10)"/>
+
+          <path d="M128,150 C170,140 178,110 156,86 C145,102 141,122 145,140 C138,150 132,152 128,150Z" fill="url(#fur2)"/>
+          <path d="M147,141 C165,132 166,116 156,100 C150,112 147,127 147,141Z" fill="rgba(255,255,255,0.18)"/>
+
+          <path d="M58,88 C58,60 80,44 100,44 C120,44 142,60 142,88 C142,120 122,130 100,134 C78,130 58,120 58,88Z" fill="url(#fur)"/>
+
+          <path d="M76,62 L58,28 L92,52 Z" fill="url(#fur2)"/>
+          <path d="M124,62 L142,28 L108,52 Z" fill="url(#fur2)"/>
+          <path d="M76,60 L62,34 L90,54 Z" fill="rgba(255,230,210,0.9)"/>
+          <path d="M124,60 L138,34 L110,54 Z" fill="rgba(255,230,210,0.9)"/>
+
+          <path d="M78,126 C86,146 114,146 122,126 C119,112 110,106 100,106 C90,106 81,112 78,126Z" fill="rgba(255,255,255,0.88)"/>
+
+          <ellipse cx="100" cy="108" rx="6" ry="5" fill="#2C3E50"/>
+          <path d="M100,112 C96,118 92,122 88,124" stroke="#2C3E50" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M100,112 C104,118 108,122 112,124" stroke="#2C3E50" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+          <g id="eyes">
+            <ellipse cx="82" cy="92" rx="10" ry="8" fill="rgba(255,255,255,0.85)"/>
+            <ellipse cx="118" cy="92" rx="10" ry="8" fill="rgba(255,255,255,0.85)"/>
+            <circle cx="82" cy="92" r="4.2" fill="#1f2937"/>
+            <circle cx="118" cy="92" r="4.2" fill="#1f2937"/>
+            <circle cx="80.5" cy="90.5" r="1.2" fill="white" opacity="0.9"/>
+            <circle cx="116.5" cy="90.5" r="1.2" fill="white" opacity="0.9"/>
+          </g>
+
+          <!-- blink -->
+          <g class="lid">
+            <rect x="70" y="86" width="24" height="12" rx="10" fill="rgba(255,255,255,0.95)"/>
+            <rect x="106" y="86" width="24" height="12" rx="10" fill="rgba(255,255,255,0.95)"/>
+          </g>
+
+          <path d="M62,88 C62,116 82,126 100,130 C118,126 138,116 138,88"
+                fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </button>
+
+    <div class="hint">Bana dokun!</div>
+  </div>
+
+  <script>
+    // Ekranda hata göster
+    const errBox = document.getElementById('errBox');
+    function showErr(msg){
+      errBox.style.display = 'block';
+      errBox.textContent = msg;
+    }
+    window.addEventListener('error', (e) => {
+      showErr("JS HATASI:\n" + (e.message || "Bilinmeyen hata") + "\n" + (e.filename || "") + ":" + (e.lineno || "") );
+    });
+    window.addEventListener('unhandledrejection', (e) => {
+      showErr("PROMISE HATASI:\n" + (e.reason?.message || e.reason || "Bilinmeyen"));
+    });
+
+    const messages = [
+      `Merhaba dora doğum günlerini insanlar bir kere kutlar ne aptalca her gün kutlu olsun senin. Bunu sana yaptım her kendini kötü hissettiğin de bazen insanlar etrafında olmazlar ekranın arkasında bazen ruhunun tam yanında burada olacağım dokunman ve hissetmen yeterli`,
+      `Bu gün güzel görünüyorsun Dora`,
+      `Bu gün iyi hissedecek bir şeyler yapmadın mı? Hadi dışarı çıkıp <span style="color:#f97316;font-weight:800;">iskender ye!</span>`,
+      `Eğer işin içinden çıkamıyorsan <span style="color:#3b82f6;font-weight:800;">Bulut'a ulaş</span> o seni dinleyecektir.`,
+      `Hey <span style="font-family:Caveat, cursive; font-size:22px; color:#f97316;">İyi ki varsın.</span>`,
+      `<span style="font-size:26px;font-weight:900;color:#f97316;display:block;">DOĞUM GÜNÜN KUTLU OLSUN!</span> 🎉🎂🎈`
+    ];
+
+    const compliments = [
+      "Çok özelsin! ✨",
+      "Gülümsemen harika! 😊",
+      "Sen çok değerlisin! ❤️",
+      "Dora sen bir tanesin! 🦊",
+      "Her şey güzel olacak! 🌟"
+    ];
+
+    let currentIdx = 0;
+    const mainText = document.getElementById('mainText');
+    const nextBtn = document.getElementById('nextBtn');
+    const counter = document.getElementById('counter');
+
+    function setBtn(){
+      if (currentIdx === 0) nextBtn.textContent = "Dokun ve Keşfet 🌟";
+      else if (currentIdx >= messages.length) nextBtn.textContent = "Baştan Başla 🔄";
+      else nextBtn.textContent = "Devam Et 🐾";
+    }
+    setBtn();
+
+    nextBtn.addEventListener('click', () => {
+      if (currentIdx < messages.length) {
+        mainText.style.opacity = 0;
+        setTimeout(() => {
+          mainText.innerHTML = messages[currentIdx];
+          mainText.style.opacity = 1;
+          currentIdx++;
+          counter.textContent = `Mesaj ${currentIdx}/6`;
+          setBtn();
+        }, 200);
+      } else {
+        currentIdx = 0;
+        mainText.textContent = "Dora için yeni bir tur başlıyor... ✨";
+        counter.textContent = "Mesaj 0/6";
+        setBtn();
+      }
+    });
+
+    // Tilki
+    const foxBtn = document.getElementById('foxBtn');
+    const foxBubble = document.getElementById('foxBubble');
+    const foxWrap = document.getElementById('foxWrap');
+    const foxSvg = document.getElementById('foxSvg');
+    let t = null;
+
+    function triggerFox(){
+      const msg = compliments[Math.floor(Math.random() * compliments.length)];
+      foxBubble.textContent = msg;
+      foxBubble.classList.add('show');
+      clearTimeout(t);
+      t = setTimeout(() => foxBubble.classList.remove('show'), 2200);
+
+      foxWrap.classList.remove('blink');
+      void foxWrap.offsetWidth;
+      foxWrap.classList.add('blink');
+
+      foxSvg.classList.remove('wiggle');
+      void foxSvg.offsetWidth;
+      foxSvg.classList.add('wiggle');
+      setTimeout(()=>foxSvg.classList.remove('wiggle'), 700);
+    }
+
+    foxBtn.addEventListener('click', triggerFox, {passive:true});
+    foxBtn.addEventListener('touchstart', triggerFox, {passive:true});
+  </script>
+</body>
+</html>
