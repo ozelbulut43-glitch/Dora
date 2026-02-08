@@ -4,107 +4,145 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dora için Masal 🦊</title>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
 body{
   height:100vh;
-  background: linear-gradient(180deg,#4facfe,#00f2fe);
   overflow:hidden;
+  background:linear-gradient(180deg,#1e3c72,#2a5298,#4facfe);
   display:flex;
   justify-content:center;
   align-items:center;
   color:white;
 }
 
-/* 🌲 Orman efekti */
-.forest{
+/* 🌌 yıldızlar */
+.star{
   position:absolute;
-  bottom:0;
-  width:100%;
-  height:40%;
-  background:linear-gradient(180deg,#0b3d2e,#052d20);
-  clip-path: polygon(0 40%, 10% 20%, 20% 40%, 30% 10%, 40% 35%, 50% 15%, 60% 40%, 70% 20%, 80% 35%, 90% 15%, 100% 40%, 100% 100%, 0 100%);
+  width:2px;height:2px;
+  background:white;
+  border-radius:50%;
+  opacity:.7;
+  animation:twinkle 3s infinite;
+}
+@keyframes twinkle{
+  0%,100%{opacity:.3;}
+  50%{opacity:1;}
 }
 
-/* ☁️ Bulutlar */
+/* ☁️ bulutlar */
 .cloud{
   position:absolute;
   top:10%;
-  width:120px;
-  height:60px;
+  width:140px;height:60px;
   background:white;
   border-radius:50px;
-  opacity:.7;
-  animation:moveCloud 25s linear infinite;
+  opacity:.6;
+  animation:cloudMove 30s linear infinite;
 }
 .cloud:before,.cloud:after{
   content:"";
   position:absolute;
   background:white;
-  width:60px;height:60px;border-radius:50%;
+  width:70px;height:70px;
+  border-radius:50%;
   top:-20px;
 }
 .cloud:before{left:10px;}
 .cloud:after{right:10px;}
-@keyframes moveCloud{
-  from{left:-150px;}
-  to{left:110%;}
+@keyframes cloudMove{
+  from{left:-200px;}
+  to{left:120%;}
 }
 
-/* 🦊 Tilki */
+/* 🌲 orman */
+.forest{
+  position:absolute;
+  bottom:0;
+  width:100%;
+  height:45%;
+  background:linear-gradient(180deg,#0b3d2e,#021a12);
+  clip-path: polygon(0 40%, 10% 20%, 20% 40%, 30% 10%, 40% 35%, 50% 15%, 60% 40%, 70% 20%, 80% 35%, 90% 15%, 100% 40%, 100% 100%, 0 100%);
+}
+
+/* 🌿 sis efekti */
+.fog{
+  position:absolute;
+  bottom:0;
+  width:200%;
+  height:30%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);
+  animation:fogMove 25s linear infinite;
+}
+@keyframes fogMove{
+  from{transform:translateX(0);}
+  to{transform:translateX(-50%);}
+}
+
+/* 🦊 tilki */
 .fox{
   position:absolute;
-  bottom:18%;
-  width:160px;
+  bottom:20%;
+  width:180px;
   animation:foxFloat 3s ease-in-out infinite;
   cursor:pointer;
-  transition:transform .3s;
+  transition:.3s;
+  filter:drop-shadow(0 15px 25px rgba(0,0,0,.6));
 }
 .fox:hover{transform:scale(1.1);}
 @keyframes foxFloat{
   0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-12px);}
+  50%{transform:translateY(-14px);}
 }
 
-/* 💬 Mesaj kutusu */
+/* 💬 mesaj kutusu */
 .box{
   position:relative;
   z-index:10;
-  background:rgba(0,0,0,0.45);
-  padding:20px 26px;
-  border-radius:18px;
-  backdrop-filter: blur(6px);
+  background:rgba(0,0,0,.55);
+  padding:22px 26px;
+  border-radius:20px;
+  backdrop-filter: blur(8px);
   text-align:center;
-  max-width:340px;
+  max-width:360px;
   animation:fadeIn 1.2s ease;
+  box-shadow:0 20px 40px rgba(0,0,0,.5);
 }
 @keyframes fadeIn{
-  from{opacity:0;transform:translateY(20px);}
+  from{opacity:0;transform:translateY(25px);}
   to{opacity:1;transform:translateY(0);}
 }
 
+#text{
+  font-size:16px;
+  line-height:1.5;
+  min-height:70px;
+  transition:.3s;
+}
+
+/* 🎮 buton */
 button{
-  margin-top:15px;
-  padding:12px 28px;
+  margin-top:16px;
+  padding:12px 30px;
   border:none;
   border-radius:30px;
-  background:linear-gradient(45deg,#ff7b00,#ffcc00);
+  background:linear-gradient(45deg,#ff7b00,#ffdd00);
   color:#000;
   font-weight:bold;
   font-size:16px;
   cursor:pointer;
-  transition:.3s;
+  transition:.25s;
 }
 button:hover{
-  transform:scale(1.07);
-  box-shadow:0 0 20px rgba(255,200,0,.7);
+  transform:scale(1.08);
+  box-shadow:0 0 25px rgba(255,200,0,.9);
 }
 
-/* 🎉 Konfeti */
+/* 🎉 konfeti */
 .confetti{
   position:absolute;
   width:8px;height:14px;
-  background:red;
   top:-20px;
   animation:fall 3s linear forwards;
 }
@@ -112,7 +150,17 @@ button:hover{
   to{transform:translateY(110vh) rotate(360deg);}
 }
 
-/* ✍️ Bulut imzası */
+/* ✨ yazı animasyonu */
+.typing{
+  border-right:2px solid white;
+  padding-right:3px;
+  animation:blink .8s infinite;
+}
+@keyframes blink{
+  50%{border-color:transparent;}
+}
+
+/* ✍️ imza */
 .signature{
   position:absolute;
   bottom:10px;
@@ -124,15 +172,27 @@ button:hover{
 </head>
 <body>
 
-<div class="cloud" style="animation-duration:22s; top:12%;"></div>
-<div class="cloud" style="animation-duration:30s; top:20%; width:160px;"></div>
+<script>
+for(let i=0;i<80;i++){
+  let s=document.createElement("div");
+  s.className="star";
+  s.style.left=Math.random()*100+"vw";
+  s.style.top=Math.random()*50+"vh";
+  s.style.animationDuration=2+Math.random()*4+"s";
+  document.body.appendChild(s);
+}
+</script>
+
+<div class="cloud" style="top:12%;animation-duration:28s;"></div>
+<div class="cloud" style="top:20%;width:180px;animation-duration:36s;"></div>
 
 <div class="forest"></div>
+<div class="fog"></div>
 
-<img class="fox" src="https://i.imgur.com/9QZ7R8M.png" alt="fox">
+<img class="fox" src="https://images.unsplash.com/photo-1601758123927-196c1a3d9c1d?auto=format&fit=crop&w=500&q=80">
 
 <div class="box">
-  <div id="text">Merhaba Dora 🦊</div>
+  <div id="text"></div>
   <button onclick="nextText()">Dokun ✨</button>
 </div>
 
@@ -140,37 +200,52 @@ button:hover{
 
 <script>
 const texts = [
-"Merhaba Dora, doğum günlerini insanlar bir kere kutlar… ne aptalca. Her gün kutlu olsun senin.",
-"Bunu sana yaptım. Kendini kötü hissettiğinde burada olacağım.",
-"Bugün güzel görünüyorsun Dora.",
-"Bugün iyi hissedecek bir şeyler yapmadın mı? Hadi dışarı çıkıp iskender ye!",
-"Eğer işin içinden çıkamıyorsan Bulut’a ulaş. O seni dinler.",
+"Merhaba Dora… 🌙\nDoğum günlerini insanlar bir kere kutlar… ne garip. Seninki her gün kutlu olsun.",
+"Bunu sana yaptım.\nKendini yalnız hissettiğinde burada olacağım.",
+"Bugün güzel görünüyorsun Dora 🦊",
+"Bugün iyi hissedecek bir şey yapmadın mı?\nHadi dışarı çıkıp iskender ye!",
+"Eğer işin içinden çıkamıyorsan Bulut’a ulaş.\nO seni dinler.",
 "🎉 DOĞUM GÜNÜN KUTLU OLSUN DORA 🎉"
 ];
 
-let i = 0;
+let index=0;
+let typingInterval;
+
+function typeText(text){
+  clearInterval(typingInterval);
+  const el=document.getElementById("text");
+  el.innerHTML="";
+  let i=0;
+  typingInterval=setInterval(()=>{
+    el.innerHTML=text.slice(0,i)+"<span class='typing'></span>";
+    i++;
+    if(i>text.length){
+      clearInterval(typingInterval);
+      el.innerHTML=text;
+    }
+  },30);
+}
 
 function nextText(){
-  i++;
-  if(i >= texts.length) i = 0;
-  document.getElementById("text").innerText = texts[i];
-
-  if(i === 5){
-    confetti();
-  }
+  index++;
+  if(index>=texts.length) index=0;
+  typeText(texts[index]);
+  if(index===5) confetti();
 }
 
 function confetti(){
-  for(let j=0;j<120;j++){
-    const c = document.createElement("div");
-    c.className = "confetti";
-    c.style.left = Math.random()*100 + "vw";
-    c.style.background = `hsl(${Math.random()*360},100%,50%)`;
-    c.style.animationDuration = 2 + Math.random()*3 + "s";
+  for(let j=0;j<160;j++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.background=`hsl(${Math.random()*360},100%,50%)`;
+    c.style.animationDuration=2+Math.random()*3+"s";
     document.body.appendChild(c);
     setTimeout(()=>c.remove(),4000);
   }
 }
+
+typeText(texts[0]);
 </script>
 
 </body>
