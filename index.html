@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Tilki Masalı — Bulut</title>
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(circle at top,#1e3c72,#0a192f);
+  font-family:"Poppins",sans-serif;
+  color:white;
+  overflow:hidden;
+}
+
+/* Sahne */
+.scene{
+  text-align:center;
+  position:relative;
+}
+
+/* Tilki */
+.fox{
+  width:140px;
+  animation:float 3s ease-in-out infinite;
+  cursor:pointer;
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-15px);}
+}
+
+/* Göz kırpma */
+.eye{
+  animation:blink 4s infinite;
+}
+@keyframes blink{
+  0%,95%,100%{transform:scaleY(1);}
+  97%{transform:scaleY(0.1);}
+}
+
+/* Kart */
+.card{
+  margin-top:20px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(10px);
+  border-radius:18px;
+  padding:20px 28px;
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+  max-width:380px;
+  transition:.3s;
+}
+
+#text{
+  font-size:16px;
+  line-height:1.6;
+  min-height:60px;
+  transition:.4s;
+}
+
+/* Buton */
+button{
+  margin-top:12px;
+  padding:10px 22px;
+  border:none;
+  border-radius:999px;
+  background:linear-gradient(135deg,#ff9a3c,#ff3d81);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  transition:.3s;
+  box-shadow:0 8px 20px rgba(255,61,129,.4);
+}
+button:hover{
+  transform:scale(1.05);
+}
+
+/* İmza */
+.signature{
+  margin-top:12px;
+  font-size:13px;
+  opacity:.7;
+  letter-spacing:1px;
+}
+
+/* Yıldızlar */
+.star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  animation:twinkle 3s infinite;
+}
+@keyframes twinkle{
+  0%,100%{opacity:.2;}
+  50%{opacity:1;}
+}
+</style>
+</head>
+<body>
+
+<div class="scene">
+
+<!-- Pixar tarzı basit tilki SVG -->
+<svg class="fox" viewBox="0 0 200 200">
+  <circle cx="100" cy="110" r="55" fill="#ff7a18"/>
+  <polygon points="45,70 15,25 65,55" fill="#ff7a18"/>
+  <polygon points="155,70 185,25 135,55" fill="#ff7a18"/>
+  <circle cx="80" cy="105" r="6" fill="#000" class="eye"/>
+  <circle cx="120" cy="105" r="6" fill="#000" class="eye"/>
+  <circle cx="100" cy="125" r="5" fill="#000"/>
+</svg>
+
+<div class="card">
+  <div id="text">Masala dokun…</div>
+  <button onclick="nextText()">Masala Dokun</button>
+</div>
+
+<div class="signature">— Bulut</div>
+
+</div>
+
+<script>
+/* Yıldız efekti */
+for(let i=0;i<60;i++){
+  const s=document.createElement("div");
+  s.className="star";
+  s.style.left=Math.random()*100+"%";
+  s.style.top=Math.random()*100+"%";
+  s.style.animationDuration=(2+Math.random()*3)+"s";
+  document.body.appendChild(s);
+}
+
+/* Masal metinleri */
+const messages = [
+  "Bir masal başlıyor Dora… Ormanın içinde küçük bir tilki var. Ve bu masal sadece senin için yazıldı.",
+  "Doğum günlerini insanlar bir kere kutlar… ama Bulut buna inanmadı. Her gün kutlu olsun istedi.",
+  "Bugün farklı görünüyorsun Dora. Sanki orman bile seni fark etmiş gibi.",
+  "Tilki sana bakıyor… Belki de seni gülümsetmek istiyor.",
+  "Eğer yorulursan Bulut’a ulaş. Bazı insanlar gerçekten dinler.",
+  "Hey… iyi ki varsın Dora. Bu masal seninle güzel.",
+  "🎉 DOĞUM GÜNÜN KUTLU OLSUN DORA! 🎉 — Bulut"
+];
+
+let index=-1;
+
+function nextText(){
+  index++;
+  if(index>=messages.length) index=0;
+
+  const t=document.getElementById("text");
+  t.style.opacity=0;
+  setTimeout(()=>{
+    t.innerText=messages[index];
+    t.style.opacity=1;
+  },300);
+}
+</script>
+
+</body>
+</html>
